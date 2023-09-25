@@ -4,12 +4,44 @@
 <table>
    <tr>
     	<td></td>
-	<td></td>
+	<td>
+		<table>
+			<tr>
+				<td>
+					<h3>Пол:</h3>
+				</td>
+				<td>
+					<input type="radio" name="image" id="image2" value="risunok-cheloveka-m.jpg" onchange="changeImage(this.value)" checked="checked">
+			    		<label for="image2">Мужчина</label>
+
+			    		<input type="radio" name="image" id="image1" value="risunok-cheloveka-j.jpg" onchange="changeImage(this.value)">
+			    		<label for="image1">Женшина</label>
+				</td>
+			</tr>
+		</table>
+	</td>
 	<td></td>
    </tr>
    <tr>
-    	<td></td>
-	<td><img src="risunok-cheloveka.jpg" /></td>
+    	<td>
+		<table>
+			<tr>
+    				<td>Сила:</td>
+				<td> 0 </td>
+   			</tr>
+			<tr>
+    				<td>Ловкость:</td>
+				<td> 0 </td>
+   			</tr>
+			<tr>
+    				<td>Интелект:</td>
+				<td> 0 </td>
+   			</tr>
+		</table>
+	</td>
+	<td>
+		<img id="displayImage" src="risunok-cheloveka-m.jpg" alt="Выбранная картинка">
+	</td>
 	<td></td>
    </tr>
    <tr>
@@ -18,5 +50,12 @@
 	<td><p>I'm hosted with GitHub Pages.</p></td>
    </tr>
 </table>
+
+    <script>
+        function changeImage(imageName) {
+            var displayImage = document.getElementById("displayImage");
+            displayImage.src = imageName;
+        }
+    </script>
 </body>
 </html>
