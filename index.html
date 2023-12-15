@@ -9,122 +9,203 @@
         transform: translate(-50%, -50%) }
 </style>
 <body>
-<section>
-<table>
-   <tr>
-    	<td></td>
-	    <td>
-		    <table>
-			    <tr>
-				    <td>
-					    <h3>Пол:</h3>
-				    </td>
-				    <td>
-					    <input type="radio" name="gender" id="gender1" value="male" onchange="changeImage(this.value)" checked="checked">
-			    		<label for="gender1">Мужчина</label>
+    <section>
+        <table>
+           <tr>
+    	        <td></td>
+	            <td>
+		            <table>
+			            <tr>
+				            <td>
+					            <h3>Пол:</h3>
+				            </td>
+				            <td>
+					            <input type="radio" name="gender" id="gender1" value="male" onchange="changeImage(this.value)" checked="checked">
+			    		        <label for="gender1">Мужчина</label>
 
-			    	    <input type="radio" name="gender" id="gender2" value="female" onchange="changeImage(this.value)">
-			    		<label for="gender2">Женшина</label>
-				    </td>
-			    </tr>
-		    </table>
-	    </td>
-	    <td></td>
-   </tr>
-   <tr>
-    	<td>
-		    <table>
-			    <tr>
-    			    <td>Сила:</td>
-				    <td>
-                        <label id="strengthValue">1</label>
-                    </td>
-   			    </tr>
-			    <tr>
-    			    <td>Ловкость:</td>                   
-				    <td>
-                        <label id="agilityValue">2</label>
-                    </td>
-   			    </tr>
-			    <tr>
-    			    <td>Интелект:</td>
-				    <td>
-                        <label id="intelligenceValue">3</label>
-                    </td>
-   			    </tr>
-		    </table>
-	    </td>
-	    <td>
-		    <img id="displayImage" src="male.jpg" alt="Выбранная картинка">
-	    </td>
-	    <td></td>
-   </tr>
+			    	            <input type="radio" name="gender" id="gender2" value="female" onchange="changeImage(this.value)">
+			    		        <label for="gender2">Женшина</label>
+				            </td>
+			            </tr>
+		            </table>
+	            </td>
+	            <td></td>
+           </tr>
+           <tr>
+    	        <td>
+		            <table id="tParameters">
+		            </table>
+	            </td>
+	            <td>
+		            <img id="displayImage" src="male.jpg" alt="Выбранная картинка">
+	            </td>
+	            <td>
+                    <table id="tMuscles">
+		            </table>
+                </td>
+           </tr>
    
-   <tr>
-        <td></td>
-        <td>
-                <button onclick="saveParameters()">Сохранить параметры</button>
-                <input type="file" id="fileInput" onchange="loadParameters()">
-        </td>
-        <td></td>
-   </tr>
+           <tr>
+                <td></td>
+                <td>
+                        <button onclick="saveParameters()">Сохранить параметры</button>
+                        <input type="file" id="fileInput" onchange="loadParameters()">
+                </td>
+                <td></td>
+           </tr>
 
-   <tr>
-	    <td></td>
-	    <td></td>
-	    <td><p>I'm hosted with GitHub Pages.</p></td>
-   </tr>
-</table>
+           <tr>
+	            <td></td>
+	            <td></td>
+	            <td><p>I'm hosted with GitHub Pages.</p></td>
+           </tr>
+        </table>
+        <script>
+            // Получаем ссылку на таблицу
+            var tParameters = document.getElementById('tParameters');
+            var tMuscles = document.getElementById('tMuscles');
+            var tUBbelt = document.createElement('table');
+            var tLBbelt = document.createElement('table');
+            var tCBbelt = document.createElement('table');
 
-    <script>
-        function changeImage(imageName) {
-            var displayImage = document.getElementById("displayImage");
-            displayImage.src = imageName + ".jpg";
-        }
+            // Создаем строки с ячейками
+            var strengthRow = createTableRow('Сила:', 'strengthValue', '1');
+            var agilityRow = createTableRow('Ловкость:', 'agilityValue', '2');
+            var intelligenceRow = createTableRow('Интелект:', 'intelligenceValue', '3');
 
-		function saveParameters() {
-            var parameters = {
-                gender: document.querySelector('input[name="gender"]:checked').value,
-                strength: document.getElementById("strengthValue").textContent,
-                agility: document.getElementById("agilityValue").textContent,
-                intelligence: document.getElementById("intelligenceValue").textContent
-            };
+            var uBbeltRow = createTableRow('Верхний пояс (Верхняя часть тела):', 'uBbeltValue', '1', true);
+            var chestMRow = createTableRow('Грудные мышцы:', 'chestMValue', '1');
+            var shoulderMRow = createTableRow('Плечевые мышцы:', 'shoulderMValue', '1');
+            var armMRow = createTableRow('Мышцы рук:', 'armMValue', '1');
 
-            var blob = new Blob([JSON.stringify(parameters)], { type: "application/json" });
-            var url = URL.createObjectURL(blob);
+            var lBbeltRow = createTableRow('Нижний пояс (Нижняя часть тела):', 'lBbeltValue', '2', true);
+            var glutealMRow = createTableRow('Ягодичные мышцы:', 'glutealMValue', '2');
+            var femoralMRow = createTableRow('Бедренные мышцы:', 'femoralMValue', '2');
+            var calfMRow = createTableRow('Икроножные мышцы:', 'calfMValue', '2');
 
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = 'parameters.json';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
+            var cBbeltRow = createTableRow('Центральный пояс (Ядро):', 'cBbeltValue', '3', true);
+            var abdominalMRow = createTableRow('Мышцы живота:', 'abdominalMValue', '3');
+            var backMRow = createTableRow('Мышцы спины:', 'backMValue', '3');
 
-        function loadParameters() {
-            var fileInput = document.getElementById('fileInput');
-            var file = fileInput.files[0];
+            // Добавляем строки к таблице
+            tParameters.appendChild(strengthRow);
+            tParameters.appendChild(agilityRow);
+            tParameters.appendChild(intelligenceRow);
 
-            if (file) {
-                var reader = new FileReader();
+            tUBbelt.appendChild(uBbeltRow);
+            tUBbelt.appendChild(chestMRow);
+            tUBbelt.appendChild(shoulderMRow);
+            tUBbelt.appendChild(armMRow);
 
-                reader.onload = function (e) {
-                    var content = e.target.result;
-                    var parameters = JSON.parse(content);
+            tLBbelt.appendChild(lBbeltRow);
+            tLBbelt.appendChild(glutealMRow);
+            tLBbelt.appendChild(femoralMRow);
+            tLBbelt.appendChild(calfMRow);
 
-                    // Примените параметры к вашему приложению
-                    document.querySelector('input[name="gender"][value="' + parameters.gender + '"]').checked = true;
-                    document.getElementById("strengthValue").textContent = parameters.strength;
-                    document.getElementById("agilityValue").textContent = parameters.agility;
-                    document.getElementById("intelligenceValue").textContent = parameters.intelligence;
-                    changeImage(parameters.gender);
+            tCBbelt.appendChild(cBbeltRow);
+            tCBbelt.appendChild(abdominalMRow);
+            tCBbelt.appendChild(backMRow);
+
+            tMuscles.appendChild(tUBbelt);
+            tMuscles.appendChild(tLBbelt);
+            tMuscles.appendChild(tCBbelt);
+
+            function createTableRow(labelText, labelId, labelValue) {
+                return createTableRow(labelText, labelId, labelValue, false);
+            }
+
+            // Функция для создания строки таблицы с ячейками
+            function createTableRow(labelText, labelId, labelValue, isH) {
+                // Создаем элементы строки и ячеек
+                var row = document.createElement('tr');
+                var labelCell = document.createElement('td');
+                var valueCell = document.createElement('td');
+
+                // Устанавливаем текст и атрибуты
+                if(isH){
+                    var h = document.createElement('h4');
+                    h.textContent = labelText;
+                    labelCell.appendChild(h);
+                } else {
+                    labelCell.textContent = labelText;
+                }
+
+                valueCell.id = labelId;
+                valueCell.textContent = labelValue;
+
+                // Добавляем ячейки к строке
+                row.appendChild(labelCell);
+                row.appendChild(valueCell);
+
+                return row;
+            }
+
+            function changeImage(imageName) {
+                var displayImage = document.getElementById("displayImage");
+                displayImage.src = imageName + ".jpg";
+            }
+
+		    function saveParameters() {
+                var parameters = {
+                    gender: document.querySelector('input[name="gender"]:checked').value,
+                    strength: document.getElementById("strengthValue").textContent,
+                    agility: document.getElementById("agilityValue").textContent,
+                    intelligence: document.getElementById("intelligenceValue").textContent,
+
+                    chest: document.getElementById("chestMValue").textContent,
+                    shoulder: document.getElementById("shoulderMValue").textContent,
+                    arm: document.getElementById("armMValue").textContent,
+                    gluteal: document.getElementById("glutealMValue").textContent,
+                    femoral: document.getElementById("femoralMValue").textContent,
+                    calf: document.getElementById("calfMValue").textContent,
+                    abdominal: document.getElementById("abdominalMValue").textContent,
+                    back: document.getElementById("backMValue").textContent
                 };
 
-                reader.readAsText(file);
+                var blob = new Blob([JSON.stringify(parameters)], { type: "application/json" });
+                var url = URL.createObjectURL(blob);
+
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'parameters.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }    
+
+            function loadParameters() {
+                var fileInput = document.getElementById('fileInput');
+                var file = fileInput.files[0];
+
+                if (file) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        var content = e.target.result;
+                        var parameters = JSON.parse(content);
+
+                        // Примените параметры к вашему приложению
+                        document.querySelector('input[name="gender"][value="' + parameters.gender + '"]').checked = true;
+                        document.getElementById("strengthValue").textContent = parameters.strength;
+                        document.getElementById("agilityValue").textContent = parameters.agility;
+                        document.getElementById("intelligenceValue").textContent = parameters.intelligence;
+
+                        document.getElementById("chestMValue").textContent = parameters.chest;
+                        document.getElementById("shoulderMValue").textContent = parameters.shoulder;
+                        document.getElementById("armMValue").textContent = parameters.arm;
+                        document.getElementById("glutealMValue").textContent = parameters.gluteal;
+                        document.getElementById("femoralMValue").textContent = parameters.femoral;
+                        document.getElementById("calfMValue").textContent = parameters.calf;
+                        document.getElementById("abdominalMValue").textContent = parameters.abdominal;
+                        document.getElementById("backMValue").textContent = parameters.back;
+                        changeImage(parameters.gender);
+                    };
+
+                    reader.readAsText(file);
+                }
             }
-        }
-    </script>
+        </script>
+    </section>
 </body>
-</section>
 </html>
