@@ -20,11 +20,11 @@
 					    <h3>Пол:</h3>
 				    </td>
 				    <td>
-					    <input type="radio" name="image" id="image2" value="risunok-cheloveka-m.jpg" onchange="changeImage(this.value)" checked="checked">
-			    		<label for="image2">Мужчина</label>
+					    <input type="radio" name="gender" id="gender1" value="male" onchange="changeImage(this.value)" checked="checked">
+			    		<label for="gender1">Мужчина</label>
 
-			    	    <input type="radio" name="image" id="image1" value="risunok-cheloveka-j.jpg" onchange="changeImage(this.value)">
-			    		<label for="image1">Женшина</label>
+			    	    <input type="radio" name="gender" id="gender2" value="female" onchange="changeImage(this.value)">
+			    		<label for="gender2">Женшина</label>
 				    </td>
 			    </tr>
 		    </table>
@@ -36,20 +36,26 @@
 		    <table>
 			    <tr>
     			    <td>Сила:</td>
-				    <td> 0 </td>
+				    <td>
+                        <label id="strengthValue">1</label>
+                    </td>
    			    </tr>
 			    <tr>
-    			    <td>Ловкость:</td>
-				    <td> 0 </td>
+    			    <td>Ловкость:</td>                   
+				    <td>
+                        <label id="agilityValue">2</label>
+                    </td>
    			    </tr>
 			    <tr>
     			    <td>Интелект:</td>
-				    <td> 0 </td>
+				    <td>
+                        <label id="intelligenceValue">3</label>
+                    </td>
    			    </tr>
 		    </table>
 	    </td>
 	    <td>
-		    <img id="displayImage" src="risunok-cheloveka-m.jpg" alt="Выбранная картинка">
+		    <img id="displayImage" src="male.jpg" alt="Выбранная картинка">
 	    </td>
 	    <td></td>
    </tr>
@@ -73,12 +79,12 @@
     <script>
         function changeImage(imageName) {
             var displayImage = document.getElementById("displayImage");
-            displayImage.src = imageName;
+            displayImage.src = imageName + ".jpg";
         }
 
 		function saveParameters() {
             var parameters = {
-                gender: document.querySelector('input[name="image"]:checked').value,
+                gender: document.querySelector('input[name="gender"]:checked').value,
                 strength: document.getElementById("strengthValue").textContent,
                 agility: document.getElementById("agilityValue").textContent,
                 intelligence: document.getElementById("intelligenceValue").textContent
@@ -108,11 +114,11 @@
                     var parameters = JSON.parse(content);
 
                     // Примените параметры к вашему приложению
-                    document.querySelector('input[name="image"][value="' + parameters.gender + '"]').checked = true;
+                    document.querySelector('input[name="gender"][value="' + parameters.gender + '"]').checked = true;
                     document.getElementById("strengthValue").textContent = parameters.strength;
                     document.getElementById("agilityValue").textContent = parameters.agility;
                     document.getElementById("intelligenceValue").textContent = parameters.intelligence;
-                    changeImage("risunok-cheloveka-" + parameters.gender + ".jpg");
+                    changeImage(parameters.gender);
                 };
 
                 reader.readAsText(file);
